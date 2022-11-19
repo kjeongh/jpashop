@@ -13,7 +13,7 @@ import java.util.List;
 public class MemberRepository {
 
     //@PersistenceContext를 붙여줘야 하는데, 스프링부트가 그냥 autowired로 가능하도록 지원
-    private EntityManager em;
+    private final EntityManager em;
 
     public void save(Member member) {
         em.persist(member);
