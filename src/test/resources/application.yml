@@ -7,7 +7,7 @@ spring: #설정이 없으면 기본적으로 스프링부트가 메모리모드�
 #
 #  jpa:
 #    hibernate:
-#      ddl-auto: create
+#      ddl-auto: create-drop #디폴트로 create-drop함. create는 먼저 다 drop하고 create하고 실행, create-drop은 애플리케이션 종료시점에 drop.
 #    properties:
 #      hibernate:
 #        #show_sql: true
