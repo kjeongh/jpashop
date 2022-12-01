@@ -60,6 +60,11 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+    @Transactional //트랜잭션이 있는 상태에서 조회하면 영속성 컨텍스트에서 가져온다
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id); //컨텍스트에서 처음에 찾으면 없으니까 db에 끌고 와서 컨텍스트에 올림
+        member.setName(name); //영속상태 객체가 변경됨을 jpa가 감지 -> update쿼리 날림
+    } //commit되면서 jpa가 flush
 }
 
 /*
