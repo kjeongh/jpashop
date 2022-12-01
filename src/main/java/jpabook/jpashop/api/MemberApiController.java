@@ -32,7 +32,7 @@ public class MemberApiController {
                 .map(m->new MemberDto(m.getName()))
                 .collect(Collectors.toList());
 
-        return new Result(collect); //Result의 data필드의 값으로 리스트가 나감
+        return new Result(collect) ; //Result의 data필드의 값으로 리스트가 나감
 
     }
     @Data
