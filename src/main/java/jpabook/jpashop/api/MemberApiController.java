@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController //@Responsebody + @Controller
 @RequiredArgsConstructor
@@ -22,7 +24,30 @@ public class MemberApiController {
 //        return new CreateMemberResponse(id);
 //    }
 
+
+    @GetMapping("/api/v2/members")
+    public Result memberV2() {
+        List<Member> findMembers = memberService.findMembers();
+        List<MemberDto> collect = findMembers.stream()
+                .map(m->new MemberDto(m.getName()))
+                .collect(Collectors.toList());
+
+        return new Result(collect); //Result의 data필드의 값으로 리스트가 나감
+
+    }
+    @Data
+    @AllArgsConstructor
+    static class Result<T> { //유연성을 위해 한 번 감싸는 용도
+        private T data;
+    }
+
+    @AllArgsConstructor
+    static class MemberDto {
+        private String name;
+    }
+
     //별도의 DTO를 만들어서 사용하는 경우
+
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
         Member member = new Member();
